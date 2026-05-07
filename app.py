@@ -1,43 +1,42 @@
-result = f"""
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-<p>👋 Hello {student}</p>
+app = Flask(__name__)
 
-<p>Your schedule has been analyzed successfully.</p>
+CORS(app)
 
-<hr>
+@app.route("/")
+def home():
+    return "Backend Running Successfully"
 
-<p>📘 Subject: <b>{subject}</b></p>
+@app.route("/api/analyze", methods=["POST"])
+def analyze():
 
-<p>⏰ Study Hours: <b>{hours} hours/day</b></p>
+    data = request.json
 
-<p>📚 Difficulty Level: <b>{difficulty}</b></p>
+    student = data.get("student")
+    subject = data.get("subject")
+    hours = data.get("hours")
+    difficulty = data.get("difficulty")
+    priority = data.get("priority")
+    days = data.get("days")
+    time = data.get("time")
 
-<p>🔥 Exam Priority: <b>{priority}</b></p>
+    suggestion = f"Study {subject} daily for {hours} hours."
 
-<p>📅 Available Days: <b>{days} days</b></p>
+    performance = "Good Progress Expected"
 
-<p>🌙 Preferred Study Time: <b>{time}</b></p>
+    return jsonify({
+        "student": student,
+        "subject": subject,
+        "hours": hours,
+        "difficulty": difficulty,
+        "priority": priority,
+        "days": days,
+        "time": time,
+        "suggestion": suggestion,
+        "performance": performance
+    })
 
-<hr>
-
-<p>✅ Suggestion:</p>
-
-<p>{suggestion}</p>
-
-<p>📈 Performance Analysis:</p>
-
-<p>{performance}</p>
-
-<hr>
-
-<p>📝 Recommended Study Plan:</p>
-
-<p>Day 1 → Basics Revision</p>
-
-<p>Day 2 → Practice Problems</p>
-
-<p>Day 3 → Mock Test</p>
-
-<p>Day 4 → Weak Area Improvement</p>
-
-"""
+if __name__ == "__main__":
+    app.run(debug=True)
