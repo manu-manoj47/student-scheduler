@@ -6,40 +6,122 @@ html = """
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Schedule Analyzer</title>
+    <title>AI Student Schedule Analyzer</title>
+
     <style>
-        body {
-            font-family: Arial;
-            background: #f2f2f2;
-            padding: 40px;
+
+        body{
+            margin:0;
+            padding:0;
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(135deg,#050816,#0a0f2c,#12052e);
+            height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:white;
         }
 
-        .container {
-            width: 400px;
-            background: white;
-            padding: 25px;
-            margin: auto;
-            border-radius: 10px;
+        .container{
+
+            width:420px;
+            padding:35px;
+
+            border-radius:20px;
+
+            background: rgba(255,255,255,0.05);
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 0 20px #00f7ff;
+
+            border:1px solid rgba(255,255,255,0.2);
+
         }
 
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
+        h1{
+
+            text-align:center;
+            margin-bottom:30px;
+
+            color:#00f7ff;
         }
 
-        button {
-            background: blue;
-            color: white;
-            border: none;
+        label{
+
+            font-size:18px;
         }
+
+        input{
+
+            width:100%;
+            padding:12px;
+
+            margin-top:10px;
+            margin-bottom:20px;
+
+            border:none;
+            border-radius:10px;
+
+            background:#111c44;
+
+            color:white;
+
+            font-size:16px;
+        }
+
+        button{
+
+            width:100%;
+            padding:14px;
+
+            border:none;
+            border-radius:10px;
+
+            background: linear-gradient(90deg,#00f7ff,#8a2be2);
+
+            color:white;
+
+            font-size:18px;
+            cursor:pointer;
+        }
+
+        button:hover{
+
+            opacity:0.9;
+        }
+
+        .result{
+
+            margin-top:25px;
+
+            background:#081b29;
+
+            padding:15px;
+
+            border-radius:10px;
+
+            color:#00ff9d;
+
+            font-size:20px;
+
+            text-align:center;
+
+            box-shadow:0 0 10px #00ff9d;
+        }
+
     </style>
+
 </head>
 
 <body>
 
 <div class="container">
-    <h2>Student Schedule Analyzer</h2>
+
+    <h1>AI Student Schedule Analyzer</h1>
 
     <form method="POST">
 
@@ -54,7 +136,9 @@ html = """
     </form>
 
     {% if result %}
-        <h3>{{ result }}</h3>
+        <div class="result">
+            {{ result }}
+        </div>
     {% endif %}
 
 </div>
