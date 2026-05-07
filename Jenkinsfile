@@ -8,7 +8,7 @@ pipeline {
 
             steps {
 
-                bat 'docker build -t student-scheduler .'
+                sh 'docker build -t student-scheduler .'
 
             }
         }
@@ -17,10 +17,10 @@ pipeline {
 
             steps {
 
-                bat 'docker stop student-container || exit 0'
-                bat 'docker rm student-container || exit 0'
+                sh 'docker stop student-container || true'
+                sh 'docker rm student-container || true'
 
-                bat 'docker run -d -p 5000:5000 --name student-container student-scheduler'
+                sh 'docker run -d -p 5000:5000 --name student-container student-scheduler'
 
             }
         }
