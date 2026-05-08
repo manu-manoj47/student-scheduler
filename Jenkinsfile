@@ -1,27 +1,22 @@
 pipeline {
-
     agent any
 
     stages {
-
-        stage('Build Docker Image') {
-
+        stage('Stop Old Containers') {
             steps {
-
-                sh 'docker build -t student-scheduler .'
-
+                sh 'docker compose down || true'
             }
         }
 
-        stage('Run Docker Container') {
-
+        stage('Build and Deploy Full Stack') {
             steps {
+                sh 'docker compose up -d --build'
+            }
+        }
 
-                sh 'docker stop student-container || true'
-                sh 'docker rm student-container || true'
-
-                sh 'docker run -d -p 5000:5000 --name student-container student-scheduler'
-
+        stage('Show Containers') {
+            steps {
+                sh 'docker ps'
             }
         }
     }
