@@ -2,19 +2,39 @@ pipeline {
     agent any
 
     stages {
+
         stage('Stop Old Containers') {
             steps {
-                sh 'docker compose down || true'
+                sh 'docker rm -f student-backend || true'
+                sh 'docker rm -f student-frontend || true'
             }
         }
 
-        stage('Build and Deploy Full Stack') {
+        stage('Build Backend Image') {
             steps {
-                sh 'docker compose up -d --build'
+                sh 'docker build -t student-backend ./backend'
             }
         }
 
-        stage('Show Containers') {
+        stage('Build Frontend Image') {
+            steps {
+                sh 'docker build -t student-frontend ./frontend'
+            }
+        }
+
+        stage('Run Backend Container') {
+            steps {
+                sh 'docker run -d -p 5000:5000 --name student-backend student-backend'
+            }
+        }
+
+        stage('Run Frontend Container') {
+            steps {
+                sh 'docker run -d -p 5173:5173 --name student-frontend student-frontend'
+            }
+        }
+
+        stage('Show Running Containers') {
             steps {
                 sh 'docker ps'
             }
